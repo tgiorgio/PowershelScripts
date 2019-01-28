@@ -212,7 +212,7 @@ if($aadAppName)
 }
 
 Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -EnabledForDiskEncryption;
-
+<#
 # Enable soft delete on KeyVault to not lose encryption secrets
 $resource = Get-AzureRmResource -ResourceId $keyVault.ResourceId;
 if($resource.Properties.enableSoftDelete -ne $true){
@@ -221,6 +221,7 @@ if($resource.Properties.enableSoftDelete -ne $true){
     Set-AzureRmResource -resourceid $resource.ResourceId -Properties $resource.Properties -Force;
 }
 
+
 # Enable ARM resource lock on KeyVault to prevent accidental key vault deletion
 if(!(Get-AzureRmResourceLock | ?{$_.name -match "LockKeyVault"})){
     Write-Host "Adding resource lock on  KeyVault $keyVaultName" -ForegroundColor Green;
@@ -228,7 +229,7 @@ if(!(Get-AzureRmResourceLock | ?{$_.name -match "LockKeyVault"})){
     New-AzureRmResourceLock -LockLevel CanNotDelete -LockName "LockKeyVault" -ResourceName $resource.Name -ResourceType $resource.ResourceType -ResourceGroupName $resource.ResourceGroupName -LockNotes $lockNotes -Force; 
 }
 
-
+#>
 ########################################################################################################################
 # Section3: Loop through the selected list of VMs and enable encryption
 ########################################################################################################################
