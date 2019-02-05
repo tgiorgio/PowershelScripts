@@ -1,6 +1,26 @@
+<#
+Infrastructure Pre-requisites
+	1. Network previously created
+	2. Availability sets previously created on the same RG as the VMs
+    3. KeyVault for encryption already created
+    4. Azure AD global 
+
+Assumptions
+All Microsoft products image will run on Windows. E.g. SQL Server or BizTalk
+
+Instructions
+The script can create and encrypt Virtual Machines. It will read a CSV file where the VM parameters are. It has to be filled in correctly. 
+There's an example provided with the script. It uses Azure AD Application to encrypt VMs. You can create manually or let the script do.
+You have to be Global Admin in Azure AD in order to get it created. 
+If you need data disks attached to the VMs you have to use a second CSV and fill in correctly. An example is provided with this script.
+
+Creation and encryption are done using jobs, so the script does not wait until the first creation/encryption finishes before proceeding.
+Use Get-Job on the same PowerShell session to see status. There's a loop that waits until all jobs are completed and won't 
+go to encryption if one of the jobs fail. In this case you have to stop the script after all jobs completed, either successfully or 
+failed, and investigate. Then you can run the script again, it will skip existent VMs.
+#>
 #Requires -Module AzureRM.Resources
 #Requires -Module AzureRM.KeyVault
-
 Param(
   [Parameter(Mandatory = $true)]
   [ValidateNotNullOrEmpty()]
@@ -25,16 +45,22 @@ Param(
   [Parameter(Mandatory = $false,
              HelpMessage="Client secret of the AAD application that was created earlier")]
   [ValidateNotNullOrEmpty()]
-  [string]$aadClientSecret
+  [string]$aadClientSecret,
+
+  [Parameter(Mandatory = $false)]
+  [ValidateNotNullOrEmpty()]
+  [string]$datadiskcsvpath
 
 )
 
+#Start-Transcript -Path "\Azure - Create and Encrypt.txt"
 $context = Enable-AzureRmContextAutosave
 
 ####################################################################################################################################
 # Section1:  Create all VMs from the CSV.
 ####################################################################################################################################
 $vmlist = Import-Csv -Path $csvpath
+$datadisklist = Import-Csv -Path $datadiskcsvpath
 
 foreach ($vm in $vmlist){ 
 
@@ -57,6 +83,8 @@ $stgAccount = $vm.StorageAccountName
 $stgAccountRG = $vm.StorageAccountRG
 $availSetName = $vm.AvailabilitySetName
 $vmdisktype = $vm.vmdisktype
+$datadiskpresent = $vm.datadiskrequired # Y or N
+$ipaddress = $vm.ip
 
 $vmInstance = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $vmname -ErrorAction SilentlyContinue
 
@@ -66,7 +94,7 @@ $securepassword = ConvertTo-SecureString $userCredPassword -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($userCredUsername,$securepassword)
 
 $vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $vnetRG
-$subnet = $vnet.Subnets | ?{$_.Name -eq $subnetname }
+$subnet = $vnet.Subnets | Where-Object {$_.Name -eq $subnetname }
 
 if(!$nicname){
     $nicname = "$vmName-NIC"
@@ -76,6 +104,12 @@ $nic = Get-AzureRmNetworkInterface -Name $nicname -ResourceGroupName $resourceGr
 if(!$nic){
     try {
         $nic = New-AzureRmNetworkInterface -Name "$vmName-NIC" -ResourceGroupName $resourceGroupName -Location $location -SubnetId $subnet.id -IpConfigurationName "$vmname-IP" -ErrorAction Stop
+
+        if ($ipaddress){
+            Set-AzureRmNetworkInterfaceIpConfig -NetworkInterface $nic -Name "$vmname-IP" -PrivateIpAddress $ipaddress -Subnet $subnet -Primary
+
+            Set-AzureRmNetworkInterface -NetworkInterface $nic
+        }
     }
     catch {
         Write-Host "Error creating VNIC" -ForegroundColor Red
@@ -91,14 +125,14 @@ if($availSetName){
         $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize -AvailabilitySetId $availSet.id | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
     }
 }else{
-    if($offer -match "Windows"){
+    if($publisher -match "microsoft"){
         $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $Offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
     }else{
         $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
     }
 }
 
-if($offer -match "Windows"){
+if($publisher -match "microsoft"){
     $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Windows -StorageAccountType $vmdisktype 
 }else{
     $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Linux -StorageAccountType $vmdisktype
@@ -113,8 +147,25 @@ if($enableVMBootLog -eq "N"){
     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Disable -ResourceGroupName $stgAccountRG
 }
 
+####################################################################################################################################
+# Section1.1:  Attach data disks to VMs
+####################################################################################################################################
 
+if ($datadiskpresent -eq "y"){
+    $lun = 0
+    foreach($disk in $datadisklist){
+        if ($disk.vmname -eq $vmname){
+            $diskname = "$vmname-DataDisk-$lun"
+            $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
+            $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+            $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
+            $lun = $lun + 1
+        }
+    }
 
+}
+
+###############################################
 try {
     New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -AsJob -ErrorAction Stop
 }
@@ -128,7 +179,7 @@ catch {
 }
 
 while(Get-Job){
-Clear-Host
+
 write-host "Current active VM creation jobs. This will refresh each 15 seconds and will proceed to encrypting them when done." -ForegroundColor Green
 Write-Host "--------------------------------------------------------------------------"
 Get-Job
@@ -190,13 +241,13 @@ if($aadAppName)
             return;
         }
         $aadClientID = $SvcPrincipals[0].ApplicationId;
-        #$aadClientID = "b904ce53-ad26-493b-aa8c-cf5333d07014"
+        
     }
 }
 
 Try
 {
-    $keyVault = Get-AzureRmKeyVault -VaultName $keyVaultName -ErrorAction $ErrorActionPreference;
+    $keyVault = Get-AzureRmKeyVault -VaultName $keyVaultName -ErrorAction Stop;
 }
 Catch [System.ArgumentException]
 {
@@ -204,7 +255,7 @@ Catch [System.ArgumentException]
     $keyVault = $null;
 }
     
-    
+<#
 if($aadAppName)
 {
     # Specify privileges to the vault for the AAD application - https://msdn.microsoft.com/en-us/library/mt603625.aspx
@@ -212,7 +263,7 @@ if($aadAppName)
 }
 
 Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -EnabledForDiskEncryption;
-<#
+
 # Enable soft delete on KeyVault to not lose encryption secrets
 $resource = Get-AzureRmResource -ResourceId $keyVault.ResourceId;
 if($resource.Properties.enableSoftDelete -ne $true){
@@ -258,10 +309,10 @@ foreach($vm in $allVMs)
         Write-Error "Could not find AAD application. Please make sure it is created and rerun the script."
     }
     # Show encryption status of the VM
-    Get-AzureRmVmDiskEncryptionStatus -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name;
+    #Get-AzureRmVmDiskEncryptionStatus -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name;
 }
 while(Get-Job){
-    Clear-Host
+    
     write-host "Current active VM creation jobs. This will refresh each 15 seconds and will proceed to encrypting them when done." -ForegroundColor Green
     Write-Host "--------------------------------------------------------------------------"
     Get-Job
