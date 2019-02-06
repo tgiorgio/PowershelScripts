@@ -1,4 +1,7 @@
 <#
+Author: Thiago Di Giorgio
+Email: thiago.gio@hotmail.com
+
 Infrastructure Pre-requisites
 	1. Network previously created
 	2. Availability sets previously created on the same RG as the VMs
@@ -88,6 +91,7 @@ $datadiskpresent = $vm.datadiskrequired # Y or N
 $ipaddress = $vm.ip
 
 $vmInstance = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $vmname -ErrorAction SilentlyContinue
+
 
 if(!$vmInstance){
 Write-Host "Creating VM $($VM.vmname)" -ForegroundColor Green
