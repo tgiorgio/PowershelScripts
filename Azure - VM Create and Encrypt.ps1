@@ -10,9 +10,10 @@ All Microsoft products image will run on Windows. E.g. SQL Server or BizTalk
 
 Instructions
 The script can create and encrypt Virtual Machines. It will read a CSV file where the VM parameters are. It has to be filled in correctly. 
-There's an example provided with the script. It uses Azure AD Application to encrypt VMs. You can create manually or let the script do.
+There's an example provided with the script. It uses Azure AD Application to encrypt VMs. You can create the Azure AD APP manually or let the script do.
 You have to be Global Admin in Azure AD in order to get it created. 
-If you need data disks attached to the VMs you have to use a second CSV and fill in correctly. An example is provided with this script.
+If you need data disks attached to the VMs you have to fill in the data disk parameter in the VMs csv with a Y
+and use a second CSV with details about them, and also fill in correctly. An example is provided with this script.
 
 Creation and encryption are done using jobs, so the script does not wait until the first creation/encryption finishes before proceeding.
 Use Get-Job on the same PowerShell session to see status. There's a loop that waits until all jobs are completed and won't 
@@ -156,8 +157,11 @@ if ($datadiskpresent -eq "y"){
     foreach($disk in $datadisklist){
         if ($disk.vmname -eq $vmname){
             $diskname = "$vmname-DataDisk-$lun"
-            $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
-            $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+            $datadisk = Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskname
+            if(!$datadisk){            
+                $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
+                $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+            }
             $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
             $lun = $lun + 1
         }
