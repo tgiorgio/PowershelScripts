@@ -22,6 +22,10 @@ Creation and encryption are done using jobs, so the script does not wait until t
 Use Get-Job on the same PowerShell session to see status. There's a loop that waits until all jobs are completed and won't 
 go to encryption if one of the jobs fail. In this case you have to stop the script after all jobs completed, either successfully or 
 failed, and investigate. Then you can run the script again, it will skip existent VMs.
+
+The script automatically enable ARM resource lock on KeyVault to prevent accidental key vault deletion. If this is not desired this part has to be commented.
+
+
 #>
 #Requires -Module AzureRM.Resources
 #Requires -Module AzureRM.KeyVault
@@ -53,21 +57,36 @@ Param(
 
   [Parameter(Mandatory = $false)]
   [ValidateNotNullOrEmpty()]
-  [string]$datadiskcsvpath
+  [string]$datadiskcsvpath,
+
+  [Parameter(Mandatory = $false)]
+  [ValidateNotNullOrEmpty()]
+  [string]$tagscsvpath
 
 )
 
-#Start-Transcript -Path "\Azure - Create and Encrypt.txt"
-$context = Enable-AzureRmContextAutosave
+
+#####
+#Script Logs all to the current directory
+$CurrentDir = $(get-location).Path;
+Start-Transcript -Path "$CurrentDir\Azure-PowershellLog.txt"
+
+
+
 
 ####################################################################################################################################
 # Section1:  Create all VMs from the CSV.
 ####################################################################################################################################
+
+#Importing all CSV files into variables for later use
 $vmlist = Import-Csv -Path $csvpath
-$datadisklist = Import-Csv -Path $datadiskcsvpath
-
+if($datadiskcsvpath -ne ""){
+    $datadisklist = Import-Csv -Path $datadiskcsvpath
+}
+if($tagscsvpath -ne ""){
+    $taglist = Import-Csv -Path $tagscsvpath 
+}
 foreach ($vm in $vmlist){ 
-
 
 $resourceGroupName = $vm.ResourceGroupName
 $location = $vm.location
@@ -98,7 +117,7 @@ Write-Host "Creating VM $($VM.vmname)" -ForegroundColor Green
 $securepassword = ConvertTo-SecureString $userCredPassword -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($userCredUsername,$securepassword)
 
-$vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $vnetRG
+$vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $vnetRG #changes to this command
 $subnet = $vnet.Subnets | Where-Object {$_.Name -eq $subnetname }
 
 if(!$nicname){
@@ -113,7 +132,7 @@ if(!$nic){
         if ($ipaddress){
             Set-AzureRmNetworkInterfaceIpConfig -NetworkInterface $nic -Name "$vmname-IP" -PrivateIpAddress $ipaddress -Subnet $subnet -Primary
 
-            Set-AzureRmNetworkInterface -NetworkInterface $nic
+            Set-AzureRmNetworkInterface -NetworkInterface $nic #showing things on screen
         }
     }
     catch {
@@ -157,46 +176,99 @@ if($enableVMBootLog -eq "N"){
 ####################################################################################################################################
 
 if ($datadiskpresent -eq "y"){
-    $lun = 0
-    foreach($disk in $datadisklist){
-        if ($disk.vmname -eq $vmname){
-            $diskname = "$vmname-DataDisk-$lun"
-            $datadisk = Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskname
-            if(!$datadisk){            
-                $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
-                $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+    if(!$datadiskcsvpath){
+        Write-Error "The script was ran without the -datadiskcsvpath parameter. Please run the script again passing the CSV path." -ErrorAction Stop
+    }else{
+        $lun = 0
+        foreach($disk in $datadisklist){
+            if ($disk.vmname -eq $vmname){
+                $diskname = "$vmname-DataDisk-$lun"
+                $datadisk = Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskname
+                if(!$datadisk){            
+                    $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
+                    $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+                }
+                $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
+                $lun = $lun + 1
             }
-            $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
-            $lun = $lun + 1
         }
+    }
+}
+
+
+####################################################################################################################################
+# Section1.2:  Assign tags to VMs
+####################################################################################################################################
+
+
+if($vm.tagrequired -eq "y"){
+    if(!$tagscsvpath){
+        Write-Error "The script was ran without the -tagscsvpath parameter. Please run the script again passing the CSV path." -ErrorAction Stop
+    }else{
+        $alltags = @{}
+        foreach($tag in $taglist){
+            if($tag.vmname -eq $vmName){
+                $alltags.Add($tag.tagname,$tag.tagvalue)
+            }
+        }
+    }
+}
+
+
+
+####################################################################################################################################
+# Section1.3:  Submit VM creation
+####################################################################################################################################
+
+try {
+    #Check if there's any tag for that VM
+    if($alltags){
+        New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -Tag $alltags -AsJob -ErrorAction Stop
+    }else{
+        New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -AsJob -ErrorAction Stop
+    }
+}catch {
+    Write-Output "Ran into an issue: $PSItem"
+}}else{
+    Write-Host "VM $vmName already exists. Skipping creation." -ForegroundColor Green
+}
+
+} #Closes the main foreach
+
+while(Get-Job){
+    Write-Host "--------------------------------------------------------------------------" -ForegroundColor Green
+    write-host "Current active VM creation jobs. This will refresh each 15 seconds and will proceed to encrypting them when done." -ForegroundColor Green
+    Write-Host "--------------------------------------------------------------------------" -ForegroundColor Green
+    Get-Job
+    Start-Sleep -Seconds 15
+    Get-Job -State Completed | Remove-Job
+    If(!(Get-Job -State Completed ) -and (!(Get-Job -State Running))){
+        Write-Error "Verify failed jobs, fix and run the script again." -ErrorAction Stop
     }
 
 }
 
-###############################################
-try {
-    New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -AsJob -ErrorAction Stop
-}
-catch {
-    Write-Output "Ran into an issue: $PSItem"
-}
+ ####################################################################################################################################
+# Section 2:  Assign tags to VMs after successfull creation
+####################################################################################################################################
+if(!$tagscsvpath){
+    Write-Error "The script was ran without the -tagscsvpath parameter. Please run the script again passing the CSV path." -ErrorAction Stop
 }else{
-    Write-Host "VM $vmName already exists. Skipping creation." -ForegroundColor Green
-}
+    $taglist = Import-Csv -Path $tagscsvpath
 
-}
-
-while(Get-Job){
-
-write-host "Current active VM creation jobs. This will refresh each 15 seconds and will proceed to encrypting them when done." -ForegroundColor Green
-Write-Host "--------------------------------------------------------------------------"
-Get-Job
-Start-Sleep -Seconds 15
-Get-Job -State Completed | Remove-Job
-}
+    foreach ($vm in $vmlist){ 
+        if($vm.tagrequired -eq "y"){
+            $alltags = $null
+            foreach($tag in $taglist){
+                $alltags += "$($tag.tagname) = '$($tag.tagvalue)'; "
+            }
+            Write-Host "Set-AzureRmResource -Tag @{$alltags} -ResourceName BLA -ResourceType BLA -ResourceGroupName BLA -Force "
+        }
+    }
+} 
 
 ####################################################################################################################################
-# Section2:  Create AAD app if encryption is enabled using AAD. Fill in $aadClientSecret variable if AAD app was already created.
+# Section 3:  Create AAD app if encryption is enabled using AAD. Fill in $aadClientSecret variable if AAD app was already created.
 ####################################################################################################################################
 Clear-Host
 Write-Host "Starting encryption of all VMs" -ForegroundColor Green
@@ -239,15 +311,14 @@ if($aadAppName)
     }
     else
     {
-        if(-not $aadClientSecret)
-        {
+        if(-not $aadClientSecret){
             $aadClientSecret = Read-Host -Prompt "Aad application ($aadAppName) was already created, input corresponding aadClientSecret and hit ENTER. It can be retrieved from https://portal.azure.com portal" ;
         }
-        if(-not $aadClientSecret)
-        {
+        if(-not $aadClientSecret){
             Write-Error "Aad application ($aadAppName) was already created. Re-run the script by supplying aadClientSecret parameter with corresponding secret from https://portal.azure.com portal";
             return;
         }
+        
         $aadClientID = $SvcPrincipals[0].ApplicationId;
         
     }
@@ -263,7 +334,7 @@ Catch [System.ArgumentException]
     $keyVault = $null;
 }
     
-<#
+
 if($aadAppName)
 {
     # Specify privileges to the vault for the AAD application - https://msdn.microsoft.com/en-us/library/mt603625.aspx
@@ -288,7 +359,8 @@ if(!(Get-AzureRmResourceLock | ?{$_.name -match "LockKeyVault"})){
     New-AzureRmResourceLock -LockLevel CanNotDelete -LockName "LockKeyVault" -ResourceName $resource.Name -ResourceType $resource.ResourceType -ResourceGroupName $resource.ResourceGroupName -LockNotes $lockNotes -Force; 
 }
 
-#>
+
+
 ########################################################################################################################
 # Section3: Loop through the selected list of VMs and enable encryption
 ########################################################################################################################
@@ -316,8 +388,6 @@ foreach($vm in $allVMs)
     {
         Write-Error "Could not find AAD application. Please make sure it is created and rerun the script."
     }
-    # Show encryption status of the VM
-    #Get-AzureRmVmDiskEncryptionStatus -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name;
 }
 while(Get-Job){
     
@@ -327,4 +397,5 @@ while(Get-Job){
     Start-Sleep -Seconds 15
     Get-Job -State Completed | Remove-Job
     }
+Stop-Transcript
 Write-Host "Script Finished"
