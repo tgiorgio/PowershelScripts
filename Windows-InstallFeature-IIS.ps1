@@ -4,8 +4,7 @@ $winversionmajor = [System.Environment]::OSVersion.Version.Major
 $winversionminor = [System.Environment]::OSVersion.Version.Minor
 
 If(($winversionmajor -eq 6) -and ($winversionminor -eq 1)){
-Add-WindowsFeature -Name $features
-Add-WindowsFeature -Name "Web-Mgmt-Tools,Web-Mgmt-Console"
+Add-WindowsFeature -Name "$features,Web-Mgmt-Tools,Web-Mgmt-Console"
 }else{
     Add-WindowsFeature -Name $features -IncludeManagementTools
 }

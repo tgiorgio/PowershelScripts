@@ -3,7 +3,7 @@ $fileUri = @("https://siadevbootdiagstorage.blob.core.windows.net/serverconfigsc
 $Settings = @{"fileUris" = $fileUri};
 
 $storageaccname = "siadevbootdiagstorage"
-$storagekey = "PraqUeGeK2Bz4Vq0xBw6AIOhd1545GtQ8wgU9aJvgaoQDNiweSei1cV89DEOtlhQI5a+17zD55ZSGtWmJCTT7A=="
+$storagekey = ""
 $ProtectedSettings = @{"storageAccountName" = $storageaccname; "storageAccountKey" = $storagekey; "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File Windows-CheckNetworkConfig.ps1"};
 
 #run command
