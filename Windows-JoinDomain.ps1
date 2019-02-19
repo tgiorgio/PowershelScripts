@@ -16,4 +16,5 @@ Param(
 $securepassword = ConvertTo-SecureString $userpassword -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($username,$securepassword)
 
-Add-Computer -DomainName $domainname -Credential $cred -restart –force
+Test-Connection $domainname -Count 2
+Add-Computer -DomainName $domainname -Credential $cred -Restart -Force

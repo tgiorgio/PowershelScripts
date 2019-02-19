@@ -1,0 +1,1 @@
+Add-windowsfeature SNMP-Service

@@ -1,0 +1,153 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20190219124055
+Username: V1\digiorgiot
+RunAs User: V1\digiorgiot
+Configuration Name: 
+Machine: LAPTOP1973 (Microsoft Windows NT 10.0.17134.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 30900
+PSVersion: 5.1.17134.590
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.17134.590
+BuildVersion: 10.0.17134.590
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure-PowershellLog.txt
+Creating VM siaidevops01
+WARNING: Breaking changes in the cmdlet 'Get-AzureRmVirtualNetwork' :
+WARNING:  - "The output type 'Microsoft.Azure.Commands.Network.Models.PSVirtualNetwork' is changing"
+ - The following properties in the output type are being deprecated :
+ 'EnableVmProtection'
+PS>TerminatingError(New-AzureRmNetworkInterface): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Resource group 'siaidevops_rg' could not be found.
+StatusCode: 404
+ReasonPhrase: Not Found
+OperationID : '78440f44-d766-4085-8b80-3ed832876e66'"
+Error creating VNIC
+PS>TerminatingError(Add-AzureRmVMNetworkInterface): "Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an 
+argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:154 char:281
++ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
++                                                                   ~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
+    + FullyQualifiedErrorId : 
+ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
+Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:154 char:281
++ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
++                                                                   ~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
+
+>> TerminatingError(Set-AzureRmVMOSDisk): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument 
+that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:161 char:45
++         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
++                                             ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
+Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:161 char:45
++         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
++                                             ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
+
+>> TerminatingError(Set-AzureRmVMBootDiagnostics): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an 
+argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:167 char:50
++     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
++                                                  ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
+    + FullyQualifiedErrorId : 
+ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
+Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:167 char:50
++     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
++                                                  ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
+
+>> TerminatingError(New-AzureRmVM): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Ran into an issue: Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+Creating VM siaedevops01
+WARNING: Breaking changes in the cmdlet 'Get-AzureRmVirtualNetwork' :
+WARNING:  - "The output type 'Microsoft.Azure.Commands.Network.Models.PSVirtualNetwork' is changing"
+ - The following properties in the output type are being deprecated :
+ 'EnableVmProtection'
+PS>TerminatingError(New-AzureRmNetworkInterface): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Resource group 'siaedevops_rg' could not be found.
+StatusCode: 404
+ReasonPhrase: Not Found
+OperationID : '8aaf59c8-458e-45d6-b809-96b60a396421'"
+Error creating VNIC
+PS>TerminatingError(Add-AzureRmVMNetworkInterface): "Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an 
+argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:154 char:281
++ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
++                                                                   ~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
+    + FullyQualifiedErrorId : 
+ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
+Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:154 char:281
++ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
++                                                                   ~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
+
+>> TerminatingError(Set-AzureRmVMOSDisk): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument 
+that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:161 char:45
++         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
++                                             ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
+Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:161 char:45
++         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
++                                             ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
+
+>> TerminatingError(Set-AzureRmVMBootDiagnostics): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an 
+argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
+Encrypt.ps1:167 char:50
++     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
++                                                  ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
+    + FullyQualifiedErrorId : 
+ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
+Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:167 char:50
++     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
++                                                  ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
+
+>> TerminatingError(New-AzureRmVM): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
+Ran into an issue: Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+Starting encryption of all VMs
+Checking if AAD application already exists and if not create one.
+PS>TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+PS C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts> & '.\Azure - VM Create and Encrypt.ps1' -csvpath "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\ScriptFinal\vmtocreatedevops.csv" -keyVaultName "siadevencrypt" -KeyVaultRGName "siadevencrypt-rg" -aadAppName "EncryptionApp" -aadClientSecret "5T7OKpb/3mY2JojlYkQqYh4mgzUkhB2b9gFlG5Td3oc="  -tagscsvpath "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\ScriptFinal\vmtagsDEVOPS.csv"
+**********************
+Windows PowerShell transcript end
+End time: 20190219124309
+**********************
