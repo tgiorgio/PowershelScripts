@@ -11,6 +11,9 @@ Infrastructure Pre-requisites
 Assumptions
 All Microsoft products image will run on Windows. E.g. SQL Server or BizTalk
 
+Disk types allowed
+Standard_LRS, StandardSSD_LRS and Premium_LRS
+
 Instructions
 The script can create and encrypt Virtual Machines. It will read a CSV file where the VM parameters are. It has to be filled in correctly. 
 There's an example provided with the script. It uses Azure AD Application to encrypt VMs. You can create the Azure AD APP manually or let the script do.
@@ -86,148 +89,169 @@ if($tagscsvpath -ne ""){
 }
 foreach ($vm in $vmlist){ 
 
-$resourceGroupName = $vm.ResourceGroupName
-$location = $vm.location
-$vmName = $vm.vmName
-$userCredUsername = $vm.VMUsername
-$userCredPassword = $vm.VMPassword
-$vnetname = $vm.vnetName
-$vnetRG = $vm.vnetRG
-$subnetname = $vm.Subnetname
-$nicname = $vm.nic
-$publisher = $vm.OSPublisher
-$offer = $vm.OSOffer
-$sku = $vm.OSSKU
-$vmsize = $vm.VMSize
-$enableVMBootLog = $vm.BootDiagnostics # Y or N
-$stgAccount = $vm.StorageAccountName
-$stgAccountRG = $vm.StorageAccountRG
-$availSetName = $vm.AvailabilitySetName
-$vmdisktype = $vm.vmdisktype
-$datadiskpresent = $vm.datadiskrequired # Y or N
-$ipaddress = $vm.ip
-$tagrequired = $vm.tagrequired
+    $resourceGroupName = $vm.ResourceGroupName
+    $location = $vm.location
+    $vmName = $vm.vmName
+    $userCredUsername = $vm.VMUsername
+    $userCredPassword = $vm.VMPassword
+    $vnetname = $vm.vnetName
+    $vnetRG = $vm.vnetRG
+    $subnetname = $vm.Subnetname
+    $nicname = $vm.nic
+    $publisher = $vm.OSPublisher
+    $offer = $vm.OSOffer
+    $sku = $vm.OSSKU
+    $vmsize = $vm.VMSize
+    $enableVMBootLog = $vm.BootDiagnostics # Y or N
+    $stgAccount = $vm.StorageAccountName
+    $stgAccountRG = $vm.StorageAccountRG
+    $availSetName = $vm.AvailabilitySetName
+    $vmdisktype = $vm.vmdisktype
+    $datadiskpresent = $vm.datadiskrequired # Y or N
+    $ipaddress = $vm.ip
+    $tagrequired = $vm.tagrequired
 
-$vmInstance = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $vmname -ErrorAction SilentlyContinue
+    $RgExist = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
+    if( !($RgExist)){
+        try{
+            Write-Host "Creating Resource Group $($resourceGroupName)."
+            New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
+        }catch{
+            Write-Error "Error creating Resource Group. Please make sure the resource group $($resourceGroupName) exist or confirm you have rights to create a Resource Group"
+        }
+        
+    }
 
 
-if(!$vmInstance){
-Write-Host "Creating VM $($VM.vmname)" -ForegroundColor Green
-$securepassword = ConvertTo-SecureString $userCredPassword -AsPlainText -Force
-$cred = New-Object System.Management.Automation.PSCredential ($userCredUsername,$securepassword)
+    $vmInstance = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $vmname -ErrorAction SilentlyContinue
 
-$vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $vnetRG #changes to this command
-$subnet = $vnet.Subnets | Where-Object {$_.Name -eq $subnetname }
 
-if(!$nicname){
-    $nicname = "$vmName-NIC"
-}
+    if(!$vmInstance){
+    Write-Host "Creating VM $($VM.vmname)" -ForegroundColor Green
+    $securepassword = ConvertTo-SecureString $userCredPassword -AsPlainText -Force
+    $cred = New-Object System.Management.Automation.PSCredential ($userCredUsername,$securepassword)
 
-$nic = Get-AzureRmNetworkInterface -Name $nicname -ResourceGroupName $resourceGroupName -ErrorAction SilentlyContinue
-if(!$nic){
-    try {
-        $nic = New-AzureRmNetworkInterface -Name "$vmName-NIC" -ResourceGroupName $resourceGroupName -Location $location -SubnetId $subnet.id -IpConfigurationName "$vmname-IP" -ErrorAction Stop
+    $vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $vnetRG #changes to this command
+    $subnet = $vnet.Subnets | Where-Object {$_.Name -eq $subnetname }
 
-        if ($ipaddress){
-            Set-AzureRmNetworkInterfaceIpConfig -NetworkInterface $nic -Name "$vmname-IP" -PrivateIpAddress $ipaddress -Subnet $subnet -Primary
+    if(!$nicname){
+        $nicname = "$vmName-NIC"
+    }
 
-            Set-AzureRmNetworkInterface -NetworkInterface $nic #showing things on screen
+    $nic = Get-AzureRmNetworkInterface -Name $nicname -ResourceGroupName $resourceGroupName -ErrorAction SilentlyContinue
+
+    if(!$nic){
+        try {
+            $nic = New-AzureRmNetworkInterface -Name "$vmName-NIC" -ResourceGroupName $resourceGroupName -Location $location -SubnetId $subnet.id -IpConfigurationName "$vmname-IP" -ErrorAction Stop
+
+            if ($ipaddress){
+                Set-AzureRmNetworkInterfaceIpConfig -NetworkInterface $nic -Name "$vmname-IP" -PrivateIpAddress $ipaddress -Subnet $subnet -Primary
+
+                Set-AzureRmNetworkInterface -NetworkInterface $nic #showing things on screen
+            }
+        }
+        catch {
+            Write-Host "Error creating VNIC. See error below: " -ForegroundColor Red
+            Write-Output $_
+            return
+
         }
     }
-    catch {
-        Write-Host "Error creating VNIC" -ForegroundColor Red
-    }
-}
 
-if($availSetName){
-    $availSet = Get-AzureRmAvailabilitySet -ResourceGroupName $resourceGroupName -Name $availSetName
+    if($availSetName){
+        $availSet = Get-AzureRmAvailabilitySet -ResourceGroupName $resourceGroupName -Name $availSetName
 
-    if($offer -match "Windows"){
-        $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize -AvailabilitySetId $availSet.id| Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $Offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        if($offer -match "Windows"){
+            $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize -AvailabilitySetId $availSet.id| Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $Offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        }else{
+            $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize -AvailabilitySetId $availSet.id | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        }
     }else{
-        $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize -AvailabilitySetId $availSet.id | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        if($offer -match "windows"){
+            $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $Offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        }else{
+            $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+        }
     }
-}else{
-    if($publisher -match "microsoft"){
-        $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $Offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+
+    if($offer -match "windows"){
+            $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Windows -StorageAccountType $vmdisktype 
     }else{
-        $vmconfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | Set-AzureRmVMOperatingSystem -Linux -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName $publisher -Offer $offer -Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+            $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Linux -StorageAccountType $vmdisktype
     }
-}
-
-if($publisher -match "microsoft"){
-        $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Windows -StorageAccountType $vmdisktype 
-}else{
-        $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_osdisk1.vhd" -CreateOption FromImage -Linux -StorageAccountType $vmdisktype
-}
 
 
 
-if($enableVMBootLog -eq "Y"){
-    $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -StorageAccountName $stgAccount -ResourceGroupName $stgAccountRG
-}
-if($enableVMBootLog -eq "N"){
-    $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Disable -ResourceGroupName $stgAccountRG
-}
+    if($enableVMBootLog -eq "Y"){
+        $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -StorageAccountName $stgAccount -ResourceGroupName $stgAccountRG
+    }
+    if($enableVMBootLog -eq "N"){
+        $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Disable -ResourceGroupName $stgAccountRG
+    }
 
-####################################################################################################################################
-# Section1.1:  Attach data disks to VMs
-####################################################################################################################################
+    ####################################################################################################################################
+    # Section1.1:  Attach data disks to VMs
+    ####################################################################################################################################
 
-if ($datadiskpresent -eq "y"){
-    if(!$datadiskcsvpath){
-        Write-Error "The script was ran without the -datadiskcsvpath parameter. Please run the script again passing the CSV path." -ErrorAction Stop
-    }else{
-        $lun = 0
-        foreach($disk in $datadisklist){
-            if ($disk.vmname -eq $vmname){
-                $diskname = "$vmname-DataDisk-$lun"
-                $datadisk = Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskname -ErrorAction SilentlyContinue
-                if(!$datadisk){            
-                    $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
-                    $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+    if ($datadiskpresent -eq "y"){
+        if(!$datadiskcsvpath){
+            Write-Error "The script was ran without the -datadiskcsvpath parameter. Please run the script again passing the CSV path."
+            return
+        }else{
+            $lun = 0
+            foreach($disk in $datadisklist){
+                if ($disk.vmname -eq $vmname){
+                    $diskname = "$vmname-DataDisk-$lun"
+                    $datadisk = Get-AzureRmDisk -ResourceGroupName $resourceGroupName -DiskName $diskname -ErrorAction SilentlyContinue
+                    if(!$datadisk){            
+                        $diskConfig = New-AzureRmDiskConfig -AccountType $disk.accounttype -Location $location -CreateOption Empty -DiskSizeGB $disk.size
+                        $datadisk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $diskname
+                    }
+                    $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
+                    $lun = $lun + 1
                 }
-                $vmconfig = Add-AzureRmVMDataDisk -CreateOption Attach -Lun $lun -VM $vmconfig -ManagedDiskId $datadisk.Id
-                $lun = $lun + 1
             }
         }
     }
-}
 
 
-####################################################################################################################################
-# Section1.2:  Assign tags to VMs
-####################################################################################################################################
+    ####################################################################################################################################
+    # Section1.2:  Assign tags to VMs
+    ####################################################################################################################################
 
-if($tagrequired -eq "y"){
-    if(!$tagscsvpath){
-        Write-Error "The script was ran without the -tagscsvpath parameter. Please run the script again passing the CSV path." -ErrorAction Stop
-    }else{
-        $alltags = @{}
-        foreach($tag in $taglist){
-            if($tag.vmname -eq $vmName){
-                $alltags.Add($tag.tagname,$tag.tagvalue)
+    if($tagrequired -eq "y"){
+        if(!$tagscsvpath){
+            Write-Error "The script was ran without the -tagscsvpath parameter. Please run the script again passing the CSV path." 
+            return
+        }else{
+            $alltags = @{}
+            foreach($tag in $taglist){
+                if($tag.vmname -eq $vmName){
+                    $alltags.Add($tag.tagname,$tag.tagvalue)
+                }
             }
         }
     }
-}
 
 
 
-####################################################################################################################################
-# Section1.3:  Submit VM creation
-####################################################################################################################################
+    ####################################################################################################################################
+    # Section1.3:  Submit VM creation
+    ####################################################################################################################################
 
-try {
-    #Check if there's any tag for that VM
-    if($alltags){
-        New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -Tag $alltags -AsJob -ErrorAction Stop
-    }else{
-        New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -AsJob -ErrorAction Stop
+    try {
+        #Check if there's any tag for that VM
+        if($alltags){
+            New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -Tag $alltags -AsJob -ErrorAction Stop
+        }else{
+            New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmconfig -AsJob -ErrorAction Stop
+        }
+    }catch {
+        Write-Output "Ran into an issue: $PSItem"
+        return
     }
-}catch {
-    Write-Output "Ran into an issue: $PSItem"
-}}else{
+}
+else{
     Write-Host "VM $vmName already exists. Skipping creation." -ForegroundColor Green
 }
 
@@ -235,7 +259,8 @@ try {
 
 while(Get-Job){
     If(!(Get-Job -State Completed ) -and (!(Get-Job -State Running))){
-        Write-Error "Verify failed jobs, fix and run the script again." -ErrorAction Stop
+        Write-Error "Verify failed jobs, fix and run the script again." 
+        return
     }
     Write-Host "--------------------------------------------------------------------------" -ForegroundColor Green
     write-host "Current active VM creation jobs. This will refresh each 15 seconds and will proceed to encrypting them when done." -ForegroundColor Green

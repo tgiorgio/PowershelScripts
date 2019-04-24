@@ -1,12 +1,12 @@
 ﻿**********************
 Windows PowerShell transcript start
-Start time: 20190219124055
+Start time: 20190412174342
 Username: V1\digiorgiot
 RunAs User: V1\digiorgiot
 Configuration Name: 
 Machine: LAPTOP1973 (Microsoft Windows NT 10.0.17134.0)
 Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-Process ID: 30900
+Process ID: 1628
 PSVersion: 5.1.17134.590
 PSEdition: Desktop
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.17134.590
@@ -17,137 +17,2780 @@ PSRemotingProtocolVersion: 2.3
 SerializationVersion: 1.1.0.1
 **********************
 Transcript started, output file is C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure-PowershellLog.txt
-Creating VM siaidevops01
-WARNING: Breaking changes in the cmdlet 'Get-AzureRmVirtualNetwork' :
-WARNING:  - "The output type 'Microsoft.Azure.Commands.Network.Models.PSVirtualNetwork' is changing"
- - The following properties in the output type are being deprecated :
- 'EnableVmProtection'
-PS>TerminatingError(New-AzureRmNetworkInterface): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Resource group 'siaidevops_rg' could not be found.
-StatusCode: 404
-ReasonPhrase: Not Found
-OperationID : '78440f44-d766-4085-8b80-3ed832876e66'"
-Error creating VNIC
-PS>TerminatingError(Add-AzureRmVMNetworkInterface): "Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an 
-argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:154 char:281
-+ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
-+                                                                   ~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
-    + FullyQualifiedErrorId : 
-ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
-Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:154 char:281
-+ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
-+                                                                   ~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
-
->> TerminatingError(Set-AzureRmVMOSDisk): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument 
-that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:161 char:45
-+         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
-+                                             ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
-Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:161 char:45
-+         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
-+                                             ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
-
->> TerminatingError(Set-AzureRmVMBootDiagnostics): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an 
-argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:167 char:50
-+     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
-+                                                  ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
-    + FullyQualifiedErrorId : 
-ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
-Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:167 char:50
-+     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
-+                                                  ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
-
->> TerminatingError(New-AzureRmVM): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Ran into an issue: Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-Creating VM siaedevops01
-WARNING: Breaking changes in the cmdlet 'Get-AzureRmVirtualNetwork' :
-WARNING:  - "The output type 'Microsoft.Azure.Commands.Network.Models.PSVirtualNetwork' is changing"
- - The following properties in the output type are being deprecated :
- 'EnableVmProtection'
-PS>TerminatingError(New-AzureRmNetworkInterface): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Resource group 'siaedevops_rg' could not be found.
-StatusCode: 404
-ReasonPhrase: Not Found
-OperationID : '8aaf59c8-458e-45d6-b809-96b60a396421'"
-Error creating VNIC
-PS>TerminatingError(Add-AzureRmVMNetworkInterface): "Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an 
-argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:154 char:281
-+ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
-+                                                                   ~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
-    + FullyQualifiedErrorId : 
-ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
-Add-AzureRmVMNetworkInterface : Cannot validate argument on parameter 'Id'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:154 char:281
-+ ... Skus $sku -Version Latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
-+                                                                   ~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Add-AzureRmVMNetworkInterface], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.AddAzureVMNetworkInterfaceCommand
-
->> TerminatingError(Set-AzureRmVMOSDisk): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument 
-that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:161 char:45
-+         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
-+                                             ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
-Set-AzureRmVMOSDisk : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:161 char:45
-+         $vmconfig = Set-AzureRmVMOSDisk -VM $vmconfig -Name $vmname"_ ...
-+                                             ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMOSDisk], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMOSDiskCommand
-
->> TerminatingError(Set-AzureRmVMBootDiagnostics): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an 
-argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and 
-Encrypt.ps1:167 char:50
-+     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
-+                                                  ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
-    + FullyQualifiedErrorId : 
-ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
-Set-AzureRmVMBootDiagnostics : Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
-At C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts\Azure - VM Create and Encrypt.ps1:167 char:50
-+     $vmconfig = Set-AzureRmVMBootDiagnostics -VM $vmconfig -Enable -S ...
-+                                                  ~~~~~~~~~
-    + CategoryInfo          : InvalidData: (:) [Set-AzureRmVMBootDiagnostics], ParameterBindingValidationException
-    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.Azure.Commands.Compute.SetAzureVMBootDiagnosticsCommand
-
->> TerminatingError(New-AzureRmVM): "Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again."
-Ran into an issue: Cannot validate argument on parameter 'VM'. The argument is null or empty. Provide an argument that is not null or empty, and then try the command again.
+VM siaelstrolh01 already exists. Skipping creation.
+VM siaelstwp01 already exists. Skipping creation.
+VM siaeprdad01 already exists. Skipping creation.
+VM siaeprdad02 already exists. Skipping creation.
+VM siaeprdjp01 already exists. Skipping creation.
+VM siaeprdrolh01 already exists. Skipping creation.
+VM siaeprdsftp01 already exists. Skipping creation.
+VM siaeprdsk01 already exists. Skipping creation.
+VM siaeprdsk02 already exists. Skipping creation.
+VM siaeprdsk03 already exists. Skipping creation.
+VM siaeprdsmtp01 already exists. Skipping creation.
+VM siaeprdsys01 already exists. Skipping creation.
+VM siaeprdwp01 already exists. Skipping creation.
+VM siaeprdws01 already exists. Skipping creation.
+VM siaeprdwsus01 already exists. Skipping creation.
+VM siaeuatrolh01 already exists. Skipping creation.
+VM siaeuatsftp01 already exists. Skipping creation.
+VM siaeuatwp01 already exists. Skipping creation.
+VM siailstbiz01 already exists. Skipping creation.
+VM siailstcrma01 already exists. Skipping creation.
+VM siailstcrmw01 already exists. Skipping creation.
+VM siailstdb02 already exists. Skipping creation.
+VM siailstspa01 already exists. Skipping creation.
+VM siailstspr01 already exists. Skipping creation.
+VM siailstws01 already exists. Skipping creation.
+VM siaippbiz01 already exists. Skipping creation.
+VM siaippdb01 already exists. Skipping creation.
+VM siaippdb02 already exists. Skipping creation.
+VM siaippws01 already exists. Skipping creation.
+VM siaiprdad01 already exists. Skipping creation.
+VM siaiprdad02 already exists. Skipping creation.
+VM siaiprdbiz01 already exists. Skipping creation.
+VM siaiprdcrmw01 already exists. Skipping creation.
+VM siaiprddb01 already exists. Skipping creation.
+VM siaiprddb02 already exists. Skipping creation.
+VM siaiprdjp01 already exists. Skipping creation.
+VM siaiprdqcm01 already exists. Skipping creation.
+VM siaiprdsk01 already exists. Skipping creation.
+VM siaiprdsk02 already exists. Skipping creation.
+VM siaiprdsk03 already exists. Skipping creation.
+VM siaiprdspa01 already exists. Skipping creation.
+VM siaiprdspr01 already exists. Skipping creation.
+VM siaiprdsys01 already exists. Skipping creation.
+VM siaiprdws01 already exists. Skipping creation.
+VM siaiuatbiz01 already exists. Skipping creation.
+VM siaiuatcrma01 already exists. Skipping creation.
+VM siaiuatcrmw01 already exists. Skipping creation.
+VM siaiuatdb01 already exists. Skipping creation.
+VM siaiuatdb02 already exists. Skipping creation.
+VM siaiuatspa01 already exists. Skipping creation.
+VM siaiuatspr01 already exists. Skipping creation.
+VM siaiuatws01 already exists. Skipping creation.
 Starting encryption of all VMs
 Checking if AAD application already exists and if not create one.
-PS>TerminatingError(): "The pipeline has been stopped."
->> TerminatingError(): "The pipeline has been stopped."
->> TerminatingError(): "The pipeline has been stopped."
-PS C:\Users\digiorgiot\OneDrive - Version 1\Documents\Git-PowershellScripts\PowershelScripts> & '.\Azure - VM Create and Encrypt.ps1' -csvpath "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\ScriptFinal\vmtocreatedevops.csv" -keyVaultName "siadevencrypt" -KeyVaultRGName "siadevencrypt-rg" -aadAppName "EncryptionApp" -aadClientSecret "5T7OKpb/3mY2JojlYkQqYh4mgzUkhB2b9gFlG5Td3oc="  -tagscsvpath "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\ScriptFinal\vmtagsDEVOPS.csv"
+Encrypting VM: siaelstrolh01 in ResourceGroup: siaelstrolh_rg
+
+Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
+--     ----            -------------   -----         -----------     --------             -------
+3      Job3            BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaelstwp01 in ResourceGroup: siaelstwp_rg
+5      Job5            BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdad01 in ResourceGroup: siaeprdad-rg
+7      Job7            BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdad02 in ResourceGroup: siaeprdad-rg
+9      Job9            BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdjp01 in ResourceGroup: siaeprdjp-rg
+11     Job11           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdrolh01 in ResourceGroup: siaeprdrolh_rg
+13     Job13           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsftp01 in ResourceGroup: siaeprdsftp_rg
+15     Job15           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsk01 in ResourceGroup: siaeprdsk_rg
+17     Job17           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsk02 in ResourceGroup: siaeprdsk_rg
+19     Job19           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsk03 in ResourceGroup: siaeprdsk_rg
+21     Job21           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsmtp01 in ResourceGroup: siaeprdsmtp_rg
+23     Job23           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdsys01 in ResourceGroup: siaeprdsys_rg
+25     Job25           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdwp01 in ResourceGroup: siaeprdwp_rg
+27     Job27           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdws01 in ResourceGroup: siaeprdws_rg
+29     Job29           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeprdwsus01 in ResourceGroup: siaeprdwsus_rg
+31     Job31           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeuatrolh01 in ResourceGroup: siaeuatepp_rg
+33     Job33           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeuatsftp01 in ResourceGroup: siaeprdsftp_rg
+35     Job35           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaeuatwp01 in ResourceGroup: siaeuatwp_rg
+37     Job37           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstbiz01 in ResourceGroup: siailstbiz_rg
+39     Job39           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstcrma01 in ResourceGroup: siailstcrma_rg
+41     Job41           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstcrmw01 in ResourceGroup: siailstcrmw_rg
+43     Job43           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstdb02 in ResourceGroup: siailstdb_rg
+45     Job45           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstspa01 in ResourceGroup: siailstspa_rg
+47     Job47           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstspr01 in ResourceGroup: siailstspr_rg
+49     Job49           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siailstws01 in ResourceGroup: siailstws_rg
+51     Job51           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaippbiz01 in ResourceGroup: siaippbiz_rg
+53     Job53           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaippdb01 in ResourceGroup: siaippdb_rg
+55     Job55           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaippdb02 in ResourceGroup: siaippdb_rg
+57     Job57           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaippws01 in ResourceGroup: siaippws_rg
+59     Job59           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdad01 in ResourceGroup: siaiprdad-rg
+61     Job61           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdad02 in ResourceGroup: siaiprdad-rg
+63     Job63           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdbiz01 in ResourceGroup: siaiprdbiz_rg
+65     Job65           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdcrmw01 in ResourceGroup: siaiprdcrmw_rg
+67     Job67           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprddb01 in ResourceGroup: siaiprddb_rg
+69     Job69           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprddb02 in ResourceGroup: siaiprddb_rg
+71     Job71           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdjp01 in ResourceGroup: siaiprdjp-rg
+73     Job73           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdqcm01 in ResourceGroup: siaiprdqcm_rg
+75     Job75           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdsk01 in ResourceGroup: siaiprdsk_rg
+77     Job77           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdsk02 in ResourceGroup: siaiprdsk_rg
+79     Job79           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdsk03 in ResourceGroup: siaiprdsk_rg
+81     Job81           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdspa01 in ResourceGroup: siaiprdspa_rg
+83     Job83           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdspr01 in ResourceGroup: siaiprdspr_rg
+85     Job85           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdsys01 in ResourceGroup: siaiprdsys_rg
+87     Job87           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiprdws01 in ResourceGroup: siaiprdws_rg
+89     Job89           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatbiz01 in ResourceGroup: siaiuatbiz_rg
+91     Job91           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatcrma01 in ResourceGroup: siaiuatcrma_rg
+93     Job93           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatcrmw01 in ResourceGroup: siaiuatcrmw_rg
+95     Job95           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatdb01 in ResourceGroup: siaiuatdb_rg
+97     Job97           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatdb02 in ResourceGroup: siaiuatdb_rg
+99     Job99           BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatspa01 in ResourceGroup: siaiuatspa_rg
+101    Job101          BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatspr01 in ResourceGroup: siaiuatspr_rg
+103    Job103          BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+Encrypting VM: siaiuatws01 in ResourceGroup: siaiuatws01_rg
+105    Job105          BackgroundJob   Running       True            localhost            param($context,$rg,$vm...
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+
+
+ Id Name   State     Output
+ -- ----   -----     ------
+  3 Job3   Running   {}
+  5 Job5   Running   {}
+  7 Job7   Completed {}
+  9 Job9   Running   {}
+ 11 Job11  Completed {}
+ 13 Job13  Running   {}
+ 15 Job15  Running   {}
+ 17 Job17  Running   {}
+ 19 Job19  Running   {}
+ 21 Job21  Running   {}
+ 23 Job23  Running   {}
+ 25 Job25  Running   {}
+ 27 Job27  Running   {}
+ 29 Job29  Running   {}
+ 31 Job31  Running   {}
+ 33 Job33  Running   {}
+ 35 Job35  Running   {}
+ 37 Job37  Running   {}
+ 39 Job39  Running   {}
+ 41 Job41  Running   {}
+ 43 Job43  Running   {}
+ 45 Job45  Running   {}
+ 47 Job47  Running   {}
+ 49 Job49  Running   {}
+ 51 Job51  Running   {}
+ 53 Job53  Running   {}
+ 55 Job55  Running   {}
+ 57 Job57  Running   {}
+ 59 Job59  Running   {}
+ 61 Job61  Running   {}
+ 63 Job63  Running   {}
+ 65 Job65  Running   {}
+ 67 Job67  Running   {}
+ 69 Job69  Running   {}
+ 71 Job71  Running   {}
+ 73 Job73  Running   {}
+ 75 Job75  Running   {}
+ 77 Job77  Running   {}
+ 79 Job79  Running   {}
+ 81 Job81  Running   {}
+ 83 Job83  Running   {}
+ 85 Job85  Running   {}
+ 87 Job87  Running   {}
+ 89 Job89  Running   {}
+ 91 Job91  Running   {}
+ 93 Job93  Running   {}
+ 95 Job95  Running   {}
+ 97 Job97  Running   {}
+ 99 Job99  Running   {}
+101 Job101 Running   {}
+103 Job103 Running   {}
+105 Job105 Running   {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  3 Job3   Running {}
+  5 Job5   Running {}
+  9 Job9   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 23 Job23  Running {}
+ 25 Job25  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 61 Job61  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 23 Job23  Running {}
+ 25 Job25  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 61 Job61  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 23 Job23  Running {}
+ 25 Job25  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 61 Job61  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 25 Job25  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 61 Job61  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 25 Job25  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 61 Job61  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 15 Job15  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 63 Job63  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 49 Job49  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 29 Job29  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 75 Job75  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 87 Job87  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+105 Job105 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 67 Job67  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 95 Job95  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 17 Job17  Running {}
+ 19 Job19  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 21 Job21  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 35 Job35  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+  5 Job5   Running {}
+ 13 Job13  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 33 Job33  Running {}
+ 37 Job37  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 13 Job13  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 79 Job79  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 13 Job13  Running {}
+ 27 Job27  Running {}
+ 31 Job31  Running {}
+ 39 Job39  Running {}
+ 41 Job41  Running {}
+ 43 Job43  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 77 Job77  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 31 Job31  Running {}
+ 41 Job41  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 55 Job55  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 81 Job81  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 31 Job31  Running {}
+ 41 Job41  Running {}
+ 45 Job45  Running {}
+ 47 Job47  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 31 Job31  Running {}
+ 41 Job41  Running {}
+ 45 Job45  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 31 Job31  Running {}
+ 51 Job51  Running {}
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 65 Job65  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 31 Job31  Running {}
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 69 Job69  Running {}
+ 71 Job71  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 69 Job69  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 59 Job59  Running {}
+ 83 Job83  Running {}
+ 85 Job85  Running {}
+ 89 Job89  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 85 Job85  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 85 Job85  Running {}
+ 91 Job91  Running {}
+ 93 Job93  Running {}
+ 97 Job97  Running {}
+ 99 Job99  Running {}
+101 Job101 Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+ 91 Job91  Running {}
+ 97 Job97  Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+ 57 Job57  Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+ Id Name   State   Output
+ -- ----   -----   ------
+ 53 Job53  Running {}
+103 Job103 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
+--------------------------------------------------------------------------
+Current active VM encryption jobs. This will refresh each 15 seconds and will proceed to encrypting them when done.
+--------------------------------------------------------------------------
+
+Id Name  State   Output
+-- ----  -----   ------
+53 Job53 Running {}
+
+
 **********************
 Windows PowerShell transcript end
-End time: 20190219124309
+End time: 20190412180811
 **********************

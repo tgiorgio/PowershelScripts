@@ -1,10 +1,10 @@
-$recoveryServicesVaultName = "siadevrv01"
+$recoveryServicesVaultName = "rsv-uks-grs-01"
 
 Get-AzRecoveryServicesVault -Name $recoveryServicesVaultName | Set-AzRecoveryServicesVaultContext
 
-$backupPolicy = Get-AzRecoveryServicesBackupProtectionPolicy -Name "SIADEV"
+$backupPolicy = Get-AzRecoveryServicesBackupProtectionPolicy -Name "SIANonProductionPolicy"
 
-$azureVMs = Import-Csv -Path C:\temp\azureservers.csv
+$azureVMs = Import-Csv -Path "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\Production\vmtocreatePREPROD.csv"
 
 foreach ($vm in $azureVMs){
     Enable-AzRecoveryServicesBackupProtection -ResourceGroupName $vm.ResourceGroupName -Name $vm.vmName -Policy $backupPolicy

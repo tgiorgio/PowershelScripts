@@ -1,18 +1,27 @@
-$fileUri = @("https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-AzureMasterScript.ps1",
-"https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-ChangeIPConfig.ps1",
-"https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-InstallFeature-IIS.ps1",
-"https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-InstallFeature-SNMP.ps1",
-"https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-JoinDomain.ps1",
-"https://siadevbootdiagstorage.blob.core.windows.net/serverconfigscripts/Windows-FormatDataDisk.ps1")
+#$fileUri = @("\\10.100.10.15\configurationscripts\Windows-FormatDataDisk.ps1",
+#"\\10.100.10.15\configurationscripts\Windows-InstallFeature-IIS.ps1",
+#"\\10.100.10.15\configurationscripts\Windows-InstallFeature-SNMP.ps1",
+#"\\10.100.10.15\configurationscripts\Windows-AzureMasterScript.ps1")
+#"https://siaprdstorconfigscript01.blob.core.windows.net/configscripts/Windows-FormatDataDisk.ps1",
+#"https://siaprdstorconfigscript01.blob.core.windows.net/configscripts/Windows-InstallFeature-SNMP.ps1")
 
-$Settings = @{"fileUris" = $fileUri;"timestamp"= 1};
+#$Settings = @{"fileUris" = $fileUri;"timestamp"= 22};
+$Settings = @{"timestamp"= 45};
 
-$storageaccname = "siadevbootdiagstorage"
-$storagekey = ""
-$ProtectedSettings = @{"storageAccountName" = $storageaccname; "storageAccountKey" = $storagekey; "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File Windows-AzureMasterScript.ps1 -DomainJoin siadevexternal.net"};
-$resourcegroupname = "siaeptws_rg"
-$vmname = "siaeptws01"
-$location ="uksouth"
+#$storageaccname = "siaprdstorconfigscript01"
+#$storagekey = "4TnWscmrsVhSfDJuy9equlKQViYQiAJ3gILoYmKpAgsM5JMVf+qlv0eNPHyACsIge1nYXLV9Mt/Unww1vNxysA=="
+$ProtectedSettings = @{"storageAccountName" = $storageaccname; "storageAccountKey" = $storagekey; "commandToExecute" = "powershell Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False"};
 
 #run command
-Set-AzVMExtension -ResourceGroupName $resourcegroupname -Location $location -VMName $vmname -Name "ServerSetup" -Publisher "Microsoft.Compute" -ExtensionType "CustomScriptExtension" -TypeHandlerVersion "1.9" -Settings $Settings -ProtectedSettings $ProtectedSettings
+$internalVMs = get-azvm |?{($_.name -match "siaept") -and ($_.StorageProfile.OsDisk.OsType -eq "Windows")}
+
+#$internalVMs = Import-Csv -Path "C:\Users\digiorgiot\OneDrive - Version 1\Customers\SIA\Production\vmtocreateSysSmtp.csv"
+foreach($vm in $internalVMs){
+    #Remove-AzVMExtension -ResourceGroupName $vm.ResourceGroupName -VMName $vm.name -Name "AzureDiskEncryption" -Force
+    
+    if ($vm.name -notmatch "siaiprdad"){
+        Write-Host $vm.name -ForegroundColor Green
+        Set-AzVMExtension -ResourceGroupName $vm.ResourceGroupName -Location $vm.location -VMName $vm.name -Name "ServerSetup" -Publisher "Microsoft.Compute" -ExtensionType "CustomScriptExtension" -TypeHandlerVersion "1.9" -Settings $Settings -ProtectedSettings $ProtectedSettings -AsJob
+    }
+    #>
+}
