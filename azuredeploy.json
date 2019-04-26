@@ -1,0 +1,135 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2018-07-01",
+            "name": "v1thidevopstorage",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "VM DevOps Storage Account"
+            },
+            "sku": {
+                "name": "Standard_LRS"
+              },
+            "kind": "StorageV2",
+            "properties": {
+            }
+        },
+        {
+            "apiVersion": "2018-08-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "v1-thi-devop1-PIP",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "v1-thi-devop1 PublicIPAddress"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[toLower('v1-thi-devop1')]"
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-08-01",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "v1-DevOps-VNet",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "DevOps VirtualNetwork"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.221.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "VM-VirtualNetwork-Subnet",
+                        "properties": {
+                            "addressPrefix": "10.221.0.0/24"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2018-08-01",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "v1-thi-devop1-NIC",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "Microsoft.Network/publicIPAddresses/v1-thi-devop1-PIP",
+                "Microsoft.Network/virtualNetworks/v1-DevOps-VNet"
+            ],
+            "tags": {
+                "displayName": "v1-thi-devops1-NetworkInterface"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'v1-thi-devop1-PIP')]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'v1-DevOps-VNet'), '/subnets/VM-VirtualNetwork-Subnet')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2018-10-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "v1-thi-devop1",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', toLower('v1thidevopstorage'))]",
+                "Microsoft.Network/networkInterfaces/v1-thi-devop1-NIC"
+            ],
+            "tags": {
+                "displayName": "v1-thi-devop1"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D1"
+                },
+                "osProfile": {
+                    "computerName": "v1-thi-devop1",
+                    "adminUsername": "version1adm",
+                    "adminPassword": "Vers1on12019!"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "16.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "UbuntuVM1-OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'v1-thi-devop1-NIC')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
